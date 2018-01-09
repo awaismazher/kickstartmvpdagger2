@@ -1,8 +1,5 @@
 package assignment.vend_awais.vendkickstarttask.movies.adapter;
 
-import android.content.Context;
-import android.support.annotation.ColorRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +7,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.Collections;
 import java.util.List;
 
+import assignment.vend_awais.vendkickstarttask.R;
 import assignment.vend_awais.vendkickstarttask.movies.model.Movie;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,57 +21,52 @@ import butterknife.ButterKnife;
  * Created by syed.awais.mazhar on 1/8/2018.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CategoryViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
-    private List<Movie> categories;
+    private List<Movie> movies;
     private ItemClickListener itemClickListener;
 
     public MovieAdapter() {
-        categories = Collections.emptyList();
+        movies = Collections.emptyList();
     }
 
     @Override
-    public CategoryViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MovieViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View itemView =
-                LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category, parent, false);
-        return new CategoryViewHolder(itemView);
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
+        return new MovieViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(CategoryViewHolder holder, final int position) {
-        final Category category = categories.get(position);
-        bind(holder, category);
+    public void onBindViewHolder(MovieViewHolder holder, final int position) {
+        final Movie movie = movies.get(position);
+        bind(holder, movie);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (itemClickListener != null) {
-                    itemClickListener.onItemClick(category, position);
+                    itemClickListener.onItemClick(movie, position);
                 }
             }
         });
     }
 
-    private void bind(CategoryViewHolder holder, Category category) {
-        holder.textView.setText(category.getName());
-        holder.textView.setBackgroundColor(
-                getColor(holder.textView.getContext(), category.getPrimaryColor()));
-        holder.imageView.setImageResource(category.getIcon());
-        holder.imageView.setBackgroundColor(
-                getColor(holder.imageView.getContext(), category.getBackgroundColor()));
-    }
-
-    private int getColor(Context context, @ColorRes int colorRes) {
-        return ContextCompat.getColor(context, colorRes);
+    private void bind(MovieViewHolder holder, Movie movie) {
+        holder.tv_tile.setText(holder.tv_tile.getContext().getString(R.string.title, movie.getTitle()));
+        holder.tv_rating.setText(holder.tv_rating.getContext().getString(R.string.rating, movie.getVoteAverage()));
+        Picasso.with(holder.iv_poster.getContext())
+                .load(holder.iv_poster.getContext().getString(R.string.image_base_path, movie.getPosterPath()))
+                .into(holder.iv_poster);
     }
 
     @Override
     public int getItemCount() {
-        return categories.size();
+        return movies.size();
     }
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
+    public void setMovies(List<Movie> movies) {
+        this.movies = movies;
     }
 
     public void setItemClickListener(ItemClickListener itemClickListener) {
@@ -79,18 +74,21 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.CategoryView
     }
 
     public interface ItemClickListener {
-        void onItemClick(Category category, int position);
+        void onItemClick(Movie movie, int position);
     }
 
-    public static class CategoryViewHolder extends RecyclerView.ViewHolder {
+    public static class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.image_category_icon)
-        ImageView imageView;
+        @BindView(R.id.iv_movie_poster)
+        ImageView iv_poster;
 
-        @BindView(R.id.label_category_name)
-        TextView textView;
+        @BindView(R.id.tv_title)
+        TextView tv_tile;
 
-        public CategoryViewHolder(View itemView) {
+        @BindView(R.id.tv_rating)
+        TextView tv_rating;
+
+        public MovieViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

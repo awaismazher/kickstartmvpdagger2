@@ -1,6 +1,5 @@
-package assignment.vend_awais.vendkickstarttask.interfaces;
+package assignment.vend_awais.vendkickstarttask.api;
 
-import assignment.vend_awais.vendkickstarttask.models.MoviesListResponseModel;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

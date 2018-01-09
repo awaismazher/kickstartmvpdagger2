@@ -22,7 +22,7 @@ public class CategoryApplication extends Application {
   }
 
   private void setupGraph() {
-    component = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+    component = DaggerAppComponent.builder().build();
     component.inject(this);
   }
 

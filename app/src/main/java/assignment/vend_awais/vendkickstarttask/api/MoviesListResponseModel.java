@@ -1,4 +1,4 @@
-package assignment.vend_awais.vendkickstarttask.models;
+package assignment.vend_awais.vendkickstarttask.api;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

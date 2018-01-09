@@ -23,7 +23,7 @@ public class Movies {
 
       @Override
       public void onFail(Object object) {
-
+          callback.onLoadCategories(movies);
       }
     });
   }

@@ -74,18 +74,23 @@ public class CategoryActivity extends BaseActivity
 
     @Override
     public void showCategories(List<Movie> items) {
-
+        if(items==null)
+            showMessage(getString(R.string.no_movies_available));
         MovieAdapter categoryAdapter = new MovieAdapter();
         categoryAdapter.setMovies(items);
         categoryAdapter.setItemClickListener(this);
+        initRecyclerView();
+
+        recyclerView.setAdapter(categoryAdapter);
+
+    }
+
+    private void initRecyclerView() {
         mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-
-        recyclerView.setAdapter(categoryAdapter);
-
     }
 
     @Override

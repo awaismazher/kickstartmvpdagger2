@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package assignment.vend_awais.vendkickstarttask.di;
+package assignment.vend_awais.vendkickstarttask.di.scope;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

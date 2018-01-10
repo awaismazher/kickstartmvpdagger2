@@ -15,7 +15,7 @@ import javax.inject.Inject;
 import assignment.vend_awais.vendkickstarttask.R;
 import assignment.vend_awais.vendkickstarttask.common.BaseActivity;
 import assignment.vend_awais.vendkickstarttask.di.component.AppComponent;
-import assignment.vend_awais.vendkickstarttask.di.component.DaggerCategoryComponent;
+import assignment.vend_awais.vendkickstarttask.di.component.DaggerMovieComponent;
 import assignment.vend_awais.vendkickstarttask.di.module.MovieModule;
 import assignment.vend_awais.vendkickstarttask.movies.adapter.MovieAdapter;
 import assignment.vend_awais.vendkickstarttask.movies.model.Movie;
@@ -42,7 +42,7 @@ public class MovieActivity extends BaseActivity
     @Override
     protected void setupComponent(AppComponent appComponent) {
 
-        DaggerCategoryComponent.builder()
+        DaggerMovieComponent.builder()
                 .appComponent(appComponent)
                 .movieModule(new MovieModule(this, this))
                 .build()

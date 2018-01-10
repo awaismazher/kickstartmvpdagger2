@@ -25,8 +25,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class CategoryActivity extends BaseActivity
-        implements MoviesPresenter.View, MovieAdapter.ItemClickListener {
+public class MovieActivity extends BaseActivity
+        implements MoviesPresenter.PresenterView, MovieAdapter.ItemClickListener {
 
     @Inject
     Presenter presenter;
@@ -34,14 +34,17 @@ public class CategoryActivity extends BaseActivity
     ProgressBar progressBar;
     @BindView(R.id.rv_movies)
     RecyclerView recyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
+    @Inject
+    RecyclerView.LayoutManager mLayoutManager;
+    @Inject
+    MovieAdapter categoryAdapter;
 
     @Override
     protected void setupComponent(AppComponent appComponent) {
 
         DaggerCategoryComponent.builder()
                 .appComponent(appComponent)
-                .movieModule(new MovieModule(this))
+                .movieModule(new MovieModule(this, this))
                 .build()
                 .inject(this);
     }
@@ -76,7 +79,6 @@ public class CategoryActivity extends BaseActivity
     public void showCategories(List<Movie> items) {
         if(items==null)
             showMessage(getString(R.string.no_movies_available));
-        MovieAdapter categoryAdapter = new MovieAdapter();
         categoryAdapter.setMovies(items);
         categoryAdapter.setItemClickListener(this);
         initRecyclerView();
@@ -86,7 +88,6 @@ public class CategoryActivity extends BaseActivity
     }
 
     private void initRecyclerView() {
-        mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);

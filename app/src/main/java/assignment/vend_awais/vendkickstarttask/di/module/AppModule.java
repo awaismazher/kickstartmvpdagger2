@@ -4,19 +4,19 @@ import android.app.Application;
 
 import javax.inject.Singleton;
 
-import assignment.vend_awais.vendkickstarttask.CategoryApplication;
+import assignment.vend_awais.vendkickstarttask.application.MovieApplication;
 import dagger.Module;
 import dagger.Provides;
 
 @Module public class AppModule {
 
-  private CategoryApplication categoryApplication;
+  private MovieApplication movieApplication;
 
-  public AppModule(CategoryApplication categoryApplication) {
-    this.categoryApplication = categoryApplication;
+  public AppModule(MovieApplication movieApplication) {
+    this.movieApplication = movieApplication;
   }
 
   @Provides @Singleton public Application provideApplication() {
-    return categoryApplication;
+    return movieApplication;
   }
 }

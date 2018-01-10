@@ -8,32 +8,32 @@ import assignment.vend_awais.vendkickstarttask.movies.model.Movies;
 
 public class MoviesPresenter implements Presenter, Callback {
 
-  private View view;
+  private PresenterView presenterView;
   private Movies movies;
 
-  public MoviesPresenter(View view, Movies movies) {
-    this.view = view;
+  public MoviesPresenter(PresenterView presenterView, Movies movies) {
+    this.presenterView = presenterView;
     this.movies = movies;
   }
 
   @Override
   public void onResume() {
-    view.showProgress();
+    presenterView.showProgress();
     movies.getCategories(this);
   }
 
   @Override
   public void onItemSelected(Movie movie, int position) {
-    view.showMessage(String.format(movie.getTitle() + " ->" + " Position %d clicked", position));
+    presenterView.showMessage(String.format(movie.getTitle() + " ->" + " Position %d clicked", position));
   }
 
   @Override
   public void onLoadCategories(List<Movie> movies) {
-    view.showCategories(movies);
-    view.hideProgress();
+    presenterView.showCategories(movies);
+    presenterView.hideProgress();
   }
 
-  public interface View {
+  public interface PresenterView {
 
     void showProgress();
 

@@ -9,6 +9,6 @@ import retrofit2.http.Query;
  */
 
 public interface IWebServiceKickStart {
-    @GET("/3/movie/top_rated")
+    @GET("3/movie/top_rated")
     Call<MoviesListResponseModel> getMoviesList(@Query("api_key") String api_key);
 }

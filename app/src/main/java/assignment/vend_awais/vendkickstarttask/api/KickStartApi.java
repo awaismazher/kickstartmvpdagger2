@@ -93,8 +93,4 @@ public class KickStartApi {
         });
     }
 
-
-    public void openTokSession() {
-
-    }
 }

@@ -40,8 +40,6 @@ public class MovieActivity extends BaseActivity
     RecyclerView.LayoutManager mLayoutManager;
     @Inject
     MovieAdapter categoryAdapter;
-    /*@Inject
-    IWebServiceKickStart iWebServiceKickStart;*/
 
     @Override
     protected void setupComponent(AppComponent appComponent) {

@@ -4,14 +4,12 @@ import javax.inject.Singleton;
 
 import assignment.vend_awais.vendkickstarttask.application.MovieApplication;
 import assignment.vend_awais.vendkickstarttask.di.module.AppModule;
-import assignment.vend_awais.vendkickstarttask.di.module.InteractorsModule;
-import assignment.vend_awais.vendkickstarttask.movies.model.Movies;
 import dagger.Component;
 
 @Singleton @Component(modules = {
-    AppModule.class, InteractorsModule.class
+    AppModule.class
 }) public interface AppComponent {
   void inject(MovieApplication movieApplication);
 
-  Movies getFindItemsInteractor();
+  //Movies getFindItemsInteractor();
 }

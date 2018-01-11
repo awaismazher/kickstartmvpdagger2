@@ -2,7 +2,6 @@ package assignment.vend_awais.vendkickstarttask.movies.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -16,6 +15,7 @@ import assignment.vend_awais.vendkickstarttask.R;
 import assignment.vend_awais.vendkickstarttask.common.BaseActivity;
 import assignment.vend_awais.vendkickstarttask.di.component.AppComponent;
 import assignment.vend_awais.vendkickstarttask.di.component.DaggerMovieComponent;
+import assignment.vend_awais.vendkickstarttask.di.module.NetModule;
 import assignment.vend_awais.vendkickstarttask.di.module.MovieModule;
 import assignment.vend_awais.vendkickstarttask.movies.adapter.MovieAdapter;
 import assignment.vend_awais.vendkickstarttask.movies.model.Movie;
@@ -23,6 +23,8 @@ import assignment.vend_awais.vendkickstarttask.movies.view.presenter.MoviesPrese
 import assignment.vend_awais.vendkickstarttask.movies.view.presenter.Presenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static assignment.vend_awais.vendkickstarttask.util.Constants.BASE_URL;
 
 
 public class MovieActivity extends BaseActivity
@@ -38,12 +40,15 @@ public class MovieActivity extends BaseActivity
     RecyclerView.LayoutManager mLayoutManager;
     @Inject
     MovieAdapter categoryAdapter;
+    /*@Inject
+    IWebServiceKickStart iWebServiceKickStart;*/
 
     @Override
     protected void setupComponent(AppComponent appComponent) {
 
         DaggerMovieComponent.builder()
                 .appComponent(appComponent)
+                .netModule(new NetModule(BASE_URL))
                 .movieModule(new MovieModule(this, this))
                 .build()
                 .inject(this);
@@ -54,6 +59,7 @@ public class MovieActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        presenter.setView(this);
 
     }
 
@@ -77,8 +83,9 @@ public class MovieActivity extends BaseActivity
 
     @Override
     public void showCategories(List<Movie> items) {
-        if(items==null)
+        if(items==null) {
             showMessage(getString(R.string.no_movies_available));
+        }
         categoryAdapter.setMovies(items);
         categoryAdapter.setItemClickListener(this);
         initRecyclerView();

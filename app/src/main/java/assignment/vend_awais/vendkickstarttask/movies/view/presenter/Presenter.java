@@ -10,6 +10,7 @@ import assignment.vend_awais.vendkickstarttask.movies.model.Movie;
 public interface Presenter {
 
   void onResume();
+  void setView(MoviesPresenter.PresenterView presenterView);
 
   void onItemSelected(Movie movie, int position);
 }

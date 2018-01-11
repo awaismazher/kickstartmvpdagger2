@@ -1,6 +1,7 @@
-package assignment.vend_awais.vendkickstarttask.interfaces;
+package assignment.vend_awais.vendkickstarttask.api;
 
-import assignment.vend_awais.vendkickstarttask.models.MoviesListResponseModel;
+import rx.Observable;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
@@ -10,6 +11,9 @@ import retrofit2.http.Query;
  */
 
 public interface IWebServiceKickStart {
-    @GET("/3/movie/top_rated")
+    @GET("3/movie/top_rated")
     Call<MoviesListResponseModel> getMoviesList(@Query("api_key") String api_key);
+
+    @GET("3/movie/top_rated")
+    Observable<MoviesListResponseModel> getMovieList(@Query("api_key") String api_key);
 }

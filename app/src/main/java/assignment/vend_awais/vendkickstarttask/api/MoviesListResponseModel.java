@@ -1,4 +1,4 @@
-package assignment.vend_awais.vendkickstarttask.models;
+package assignment.vend_awais.vendkickstarttask.api;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -22,7 +22,7 @@ public class MoviesListResponseModel implements Serializable {
     @SerializedName("total_pages")
     @Expose
     private long totalPages;
-    @SerializedName("movies")
+    @SerializedName("results")
     @Expose
     private List<Movie> movies = null;
 

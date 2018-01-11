@@ -2,7 +2,6 @@ package assignment.vend_awais.vendkickstarttask.movies.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -15,7 +14,8 @@ import javax.inject.Inject;
 import assignment.vend_awais.vendkickstarttask.R;
 import assignment.vend_awais.vendkickstarttask.common.BaseActivity;
 import assignment.vend_awais.vendkickstarttask.di.component.AppComponent;
-import assignment.vend_awais.vendkickstarttask.di.component.DaggerCategoryComponent;
+import assignment.vend_awais.vendkickstarttask.di.component.DaggerMovieComponent;
+import assignment.vend_awais.vendkickstarttask.di.module.NetModule;
 import assignment.vend_awais.vendkickstarttask.di.module.MovieModule;
 import assignment.vend_awais.vendkickstarttask.movies.adapter.MovieAdapter;
 import assignment.vend_awais.vendkickstarttask.movies.model.Movie;
@@ -24,9 +24,11 @@ import assignment.vend_awais.vendkickstarttask.movies.view.presenter.Presenter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static assignment.vend_awais.vendkickstarttask.util.Constants.BASE_URL;
 
-public class CategoryActivity extends BaseActivity
-        implements MoviesPresenter.View, MovieAdapter.ItemClickListener {
+
+public class MovieActivity extends BaseActivity
+        implements MoviesPresenter.PresenterView, MovieAdapter.ItemClickListener {
 
     @Inject
     Presenter presenter;
@@ -34,14 +36,20 @@ public class CategoryActivity extends BaseActivity
     ProgressBar progressBar;
     @BindView(R.id.rv_movies)
     RecyclerView recyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
+    @Inject
+    RecyclerView.LayoutManager mLayoutManager;
+    @Inject
+    MovieAdapter categoryAdapter;
+    /*@Inject
+    IWebServiceKickStart iWebServiceKickStart;*/
 
     @Override
     protected void setupComponent(AppComponent appComponent) {
 
-        DaggerCategoryComponent.builder()
+        DaggerMovieComponent.builder()
                 .appComponent(appComponent)
-                .movieModule(new MovieModule(this))
+                .netModule(new NetModule(BASE_URL))
+                .movieModule(new MovieModule(this, this))
                 .build()
                 .inject(this);
     }
@@ -51,6 +59,7 @@ public class CategoryActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        presenter.setView(this);
 
     }
 
@@ -74,18 +83,22 @@ public class CategoryActivity extends BaseActivity
 
     @Override
     public void showCategories(List<Movie> items) {
-
-        MovieAdapter categoryAdapter = new MovieAdapter();
+        if(items==null) {
+            showMessage(getString(R.string.no_movies_available));
+        }
         categoryAdapter.setMovies(items);
         categoryAdapter.setItemClickListener(this);
-        mLayoutManager = new LinearLayoutManager(this);
+        initRecyclerView();
+
+        recyclerView.setAdapter(categoryAdapter);
+
+    }
+
+    private void initRecyclerView() {
         recyclerView.setLayoutManager(mLayoutManager);
 
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
-
-        recyclerView.setAdapter(categoryAdapter);
-
     }
 
     @Override

@@ -4,24 +4,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
 
 import assignment.vend_awais.vendkickstarttask.R;
+import assignment.vend_awais.vendkickstarttask.movies.holder.MovieViewHolder;
 import assignment.vend_awais.vendkickstarttask.movies.model.Movie;
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by syed.awais.mazhar on 1/8/2018.
  */
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
+public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
 
     private List<Movie> movies;
     private ItemClickListener itemClickListener;
@@ -40,7 +35,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public void onBindViewHolder(MovieViewHolder holder, final int position) {
         final Movie movie = movies.get(position);
-        bind(holder, movie);
+        holder.bind(movie);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,14 +45,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
                 }
             }
         });
-    }
-
-    private void bind(MovieViewHolder holder, Movie movie) {
-        holder.tv_tile.setText(holder.tv_tile.getContext().getString(R.string.title, movie.getTitle()));
-        holder.tv_rating.setText(holder.tv_rating.getContext().getString(R.string.rating, movie.getVoteAverage()));
-        Picasso.with(holder.iv_poster.getContext())
-                .load(holder.iv_poster.getContext().getString(R.string.image_base_path, movie.getPosterPath()))
-                .into(holder.iv_poster);
     }
 
     @Override
@@ -75,22 +62,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public interface ItemClickListener {
         void onItemClick(Movie movie, int position);
-    }
-
-    public static class MovieViewHolder extends RecyclerView.ViewHolder {
-
-        @BindView(R.id.iv_movie_poster)
-        ImageView iv_poster;
-
-        @BindView(R.id.tv_title)
-        TextView tv_tile;
-
-        @BindView(R.id.tv_rating)
-        TextView tv_rating;
-
-        public MovieViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-        }
     }
 }

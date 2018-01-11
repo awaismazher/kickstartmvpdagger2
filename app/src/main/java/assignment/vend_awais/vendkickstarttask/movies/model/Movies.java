@@ -3,8 +3,8 @@ package assignment.vend_awais.vendkickstarttask.movies.model;
 import java.util.List;
 
 import assignment.vend_awais.vendkickstarttask.api.KickStartApi;
-import assignment.vend_awais.vendkickstarttask.callbacks.IKickStartApiICallback;
-import assignment.vend_awais.vendkickstarttask.models.MoviesListResponseModel;
+import assignment.vend_awais.vendkickstarttask.api.IKickStartApiICallback;
+import assignment.vend_awais.vendkickstarttask.api.MoviesListResponseModel;
 /**
  * Created by syed.awais.mazhar on 1/8/2018.
  */
@@ -23,7 +23,7 @@ public class Movies {
 
       @Override
       public void onFail(Object object) {
-
+          callback.onLoadCategories(movies);
       }
     });
   }

@@ -1,4 +1,4 @@
-package assignment.vend_awais.vendkickstarttask.callbacks;
+package assignment.vend_awais.vendkickstarttask.api;
 
 /**
  * Created by syed.awais.mazhar on 1/8/2018.

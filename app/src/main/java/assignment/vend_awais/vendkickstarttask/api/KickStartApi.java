@@ -6,9 +6,6 @@ import com.google.gson.GsonBuilder;
 import java.util.concurrent.TimeUnit;
 
 import assignment.vend_awais.vendkickstarttask.BuildConfig;
-import assignment.vend_awais.vendkickstarttask.callbacks.IKickStartApiICallback;
-import assignment.vend_awais.vendkickstarttask.interfaces.IWebServiceKickStart;
-import assignment.vend_awais.vendkickstarttask.models.MoviesListResponseModel;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -96,8 +93,4 @@ public class KickStartApi {
         });
     }
 
-
-    public void openTokSession() {
-
-    }
 }

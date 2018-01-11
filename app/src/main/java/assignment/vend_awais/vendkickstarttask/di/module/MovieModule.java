@@ -1,6 +1,10 @@
 package assignment.vend_awais.vendkickstarttask.di.module;
 
-import assignment.vend_awais.vendkickstarttask.movies.model.Movies;
+import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
+import assignment.vend_awais.vendkickstarttask.movies.adapter.MovieAdapter;
 import assignment.vend_awais.vendkickstarttask.movies.view.presenter.MoviesPresenter;
 import assignment.vend_awais.vendkickstarttask.movies.view.presenter.Presenter;
 import dagger.Module;
@@ -8,18 +12,29 @@ import dagger.Provides;
 
 @Module public class MovieModule {
 
-  private MoviesPresenter.View view;
+  private Context mContext;
+  private MoviesPresenter.PresenterView presenterView;
 
-  public MovieModule(MoviesPresenter.View view) {
-    this.view = view;
-  }
-
-  @Provides public MoviesPresenter.View provideView() {
-    return view;
+  public MovieModule(MoviesPresenter.PresenterView presenterView, Context context) {
+    this.mContext = context;
+    this.presenterView = presenterView;
   }
 
   @Provides
-  public Presenter providePresenter(MoviesPresenter.View categoryView, Movies movies) {
-    return new MoviesPresenter(categoryView, movies);
+  public RecyclerView.LayoutManager provideLayoutManager(){
+     return new LinearLayoutManager(mContext);
+  }
+  @Provides public MoviesPresenter.PresenterView provideView() {
+    return presenterView;
+  }
+
+  @Provides
+  public Presenter providePresenter(MoviesPresenter moviesPresenterView) {
+    return moviesPresenterView;
+  }
+
+  @Provides
+  public MovieAdapter provideMovieAdapter(){
+    return new MovieAdapter();
   }
 }

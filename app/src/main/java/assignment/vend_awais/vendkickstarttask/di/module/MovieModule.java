@@ -4,10 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import javax.inject.Singleton;
-
 import assignment.vend_awais.vendkickstarttask.movies.adapter.MovieAdapter;
-import assignment.vend_awais.vendkickstarttask.movies.model.Movies;
 import assignment.vend_awais.vendkickstarttask.movies.view.presenter.MoviesPresenter;
 import assignment.vend_awais.vendkickstarttask.movies.view.presenter.Presenter;
 import dagger.Module;
@@ -32,8 +29,8 @@ import dagger.Provides;
   }
 
   @Provides
-  public Presenter providePresenter(MoviesPresenter.PresenterView categoryPresenterView, Movies movies) {
-    return new MoviesPresenter(categoryPresenterView, movies);
+  public Presenter providePresenter(MoviesPresenter moviesPresenterView) {
+    return moviesPresenterView;
   }
 
   @Provides

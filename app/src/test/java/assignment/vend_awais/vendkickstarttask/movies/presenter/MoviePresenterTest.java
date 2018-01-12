@@ -5,11 +5,9 @@ import android.os.Looper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
@@ -20,7 +18,6 @@ import assignment.vend_awais.vendkickstarttask.movies.model.Movie;
 import assignment.vend_awais.vendkickstarttask.movies.view.presenter.MoviesPresenter;
 import assignment.vend_awais.vendkickstarttask.movies.view.presenter.Presenter;
 import rx.Observable;
-import rx.Observer;
 import rx.Scheduler;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.plugins.RxJavaSchedulersHook;
@@ -28,7 +25,6 @@ import rx.schedulers.Schedulers;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.atLeastOnce;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.initMocks;
@@ -78,7 +74,7 @@ public class MoviePresenterTest {
     public void onLoadMovies(){
         PowerMockito.mockStatic(Looper.class);
         when(AndroidSchedulers.mainThread()).thenReturn(mRxJavaSchedulersHook.getComputationScheduler());
-        moviesPresenter.onLoadMovies();
+        presenter.onLoadMovies();
         verify(presenterView, atLeastOnce()).showProgress();
     }
 
@@ -86,7 +82,7 @@ public class MoviePresenterTest {
     public void getCategoriesViaObservable(){
         PowerMockito.mockStatic(Looper.class);
         when(AndroidSchedulers.mainThread()).thenReturn(mRxJavaSchedulersHook.getComputationScheduler());
-        moviesPresenter.onLoadMovies();
+        presenter.onLoadMovies();
         verify(presenterView, atLeastOnce()).showProgress();
         verify(iWebServiceKickStart.getMovieList(anyString())).asObservable();
     }

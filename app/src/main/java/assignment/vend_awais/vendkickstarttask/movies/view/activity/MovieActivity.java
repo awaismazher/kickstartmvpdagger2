@@ -64,7 +64,7 @@ public class MovieActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onResume();
+        presenter.onLoadMovies();
     }
 
     @Override

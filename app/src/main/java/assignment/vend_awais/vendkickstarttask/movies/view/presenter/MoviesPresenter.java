@@ -25,7 +25,7 @@ public class MoviesPresenter implements Presenter, Observer<MoviesListResponseMo
     }
 
     @Override
-    public void onResume() {
+    public void onLoadMovies() {
         presenterView.showProgress();
         //movies.getCategories(this);
         getCategoriesViaObservable();
@@ -39,13 +39,6 @@ public class MoviesPresenter implements Presenter, Observer<MoviesListResponseMo
     private void getCategoriesViaObservable() {
         Observable<MoviesListResponseModel> moviesObservable = iWebServiceKickStart.getMovieList(API_KEY);
         subscribe(moviesObservable, this);
-    }
-
-    private void subscribe(Observable<MoviesListResponseModel> observable, Observer<MoviesListResponseModel> observer) {
-        observable.subscribeOn(Schedulers.newThread())
-                .toSingle()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(observer);
     }
 
     @Override

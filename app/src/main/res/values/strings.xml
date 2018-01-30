@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">VenDKickStartTask</string>
+    <string name="image_base_path">https://image.tmdb.org/t/p/w500%1$s</string>
+    <string name="rating">Rating: %1$d</string>
+    <string name="title">Title:  %1$s</string>
+    <string name="no_movies_available">No movies available right now!</string>
+</resources>

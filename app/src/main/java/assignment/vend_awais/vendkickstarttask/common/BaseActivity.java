@@ -15,7 +15,7 @@ public abstract class BaseActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setupComponent(MovieApplication.get(this).component());
+    setupComponent(((MovieApplication) this.getApplicationContext()).component());
   }
 
   protected abstract void setupComponent(AppComponent appComponent);
